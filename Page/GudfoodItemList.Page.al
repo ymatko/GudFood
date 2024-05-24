@@ -38,5 +38,12 @@ page 50100 "Gudfood Item List"
                 }
             }
         }
+        area(factboxes)
+        {
+            part("GudfoodItemImageFactBox"; "Gudfood Item Image")
+            {
+                ApplicationArea = All;
+            }
+        }
     }
 }

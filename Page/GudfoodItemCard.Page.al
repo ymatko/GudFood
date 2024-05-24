@@ -69,6 +69,13 @@ page 50101 "Gudfood Item Card"
                 }
             }
         }
+        area(factboxes)
+        {
+            part("GudfoodItemImageFactBox"; "Gudfood Item Image")
+            {
+                ApplicationArea = All;
+            }
+        }
     }
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin

@@ -9,7 +9,7 @@
             "server": "http://container23-3",
             "serverInstance": "BC",
             "authentication": "UserPassword",
-            "startupObjectId": 50114,
+            "startupObjectId": 50100,
             "startupObjectType": "Page",
             "breakOnError": "All",
             "launchBrowser": true,

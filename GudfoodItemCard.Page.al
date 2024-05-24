@@ -16,7 +16,7 @@ page 50101 "Gudfood Item Card"
                 Caption = 'General';
                 field(Code; Rec.Code)
                 {
-                    //Caption = 'Code';
+                    Caption = 'Code';
                     ToolTip = 'Specifies that the Code';
                     ApplicationArea = All;
                     Editable = false;
@@ -50,13 +50,6 @@ page 50101 "Gudfood Item Card"
                     Caption = 'Shelf Life';
                     ApplicationArea = All;
                     ToolTip = 'Specifies that the Shelf Life';
-                    trigger OnValidate()
-                    begin
-                        if Rec."Shelf Life" = 0D then
-                            Error('The Shelf Life field is required');
-                        if Rec."Shelf Life" < Today then
-                            Error('The Shelf Life field cannot be less than today''s date.');
-                    end;
                 }
             }
             group(Order)
@@ -77,16 +70,11 @@ page 50101 "Gudfood Item Card"
             }
         }
     }
-    trigger OnNewRecord(BelowxRec: Boolean)
-    var
-        MaxCode: Integer;
+    trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
-        if Rec.FindLast() then begin
-            if Evaluate(MaxCode, Rec.Code) then
-                Rec.Code := Format(MaxCode + 10, 0, '<Integer>')
-            else
-                Error('The Code field can only be a number');
-        end else
-            Rec.Code := '10';
+        if Rec."Shelf Life" = 0D then
+            Error('The Shelf Life field is required');
+        if Rec."Shelf Life" < Today then
+            Error('The Shelf Life field cannot be less than today''s date.');
     end;
 }

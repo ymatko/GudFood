@@ -9,6 +9,14 @@ table 50100 "Gudfood Item"
         {
             Caption = 'Code';
             DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                if Code <> xRec.Code then begin
+                    SalesSetup.Get();
+                    NoSeriesMgt.TestManual(SalesSetup."Gudfood No.");
+                    "No. Series" := '';
+                end;
+            end;
         }
         field(2; Description; Text[100])
         {
@@ -45,6 +53,12 @@ table 50100 "Gudfood Item"
             Caption = 'Picture';
             DataClassification = CustomerContent;
         }
+        field(9; "No. Series"; Code[20])
+        {
+            Caption = 'No. Series';
+            Editable = false;
+            TableRelation = "No. Series";
+        }
     }
     keys
     {
@@ -53,4 +67,17 @@ table 50100 "Gudfood Item"
             Clustered = true;
         }
     }
+    trigger OnInsert()
+    var
+    begin
+        if Code = '' then begin
+            SalesSetup.Get();
+            SalesSetup.TestField("Gudfood No.");
+            NoSeriesMgt.InitSeries(SalesSetup."Gudfood No.", xRec."No. Series", 0D, Code, "No. Series");
+        end;
+    end;
+
+    var
+        SalesSetup: Record "Sales & Receivables Setup";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
 }

@@ -4,7 +4,7 @@ page 50100 "Gudfood Item List"
     Caption = 'Gudfood Item List';
     PageType = List;
     SourceTable = "Gudfood Item";
-    Editable = false;
+    Editable = true;
 
     layout
     {

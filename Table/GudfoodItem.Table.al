@@ -9,6 +9,7 @@ table 50100 "Gudfood Item"
         {
             Caption = 'Code';
             DataClassification = CustomerContent;
+            Editable = false;
             trigger OnValidate()
             begin
                 if Code <> xRec.Code then begin

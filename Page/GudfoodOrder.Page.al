@@ -18,6 +18,18 @@ page 50104 "Gudfood Order"
                 }
                 field("Sell-to Customer No."; Rec."Sell-to Customer No.")
                 {
+                    trigger OnValidate()
+                    var
+                        Customer: Record Customer;
+                    begin
+                        if Rec."Sell-to Customer No." <> '' then begin
+                            Customer.Get(Rec."Sell-to Customer No.");
+                            Rec."Sell-to Customer Name" := Customer.Name;
+                            CopySellToCustomerNoToLines();
+                        end else begin
+                            Rec."Sell-to Customer Name" := '';
+                        end;
+                    end;
                 }
                 field("Sell-to Customer Name"; Rec."Sell-to Customer Name")
                 {
@@ -45,4 +57,19 @@ page 50104 "Gudfood Order"
             }
         }
     }
+    local procedure CopySellToCustomerNoToLines()
+    var
+        GudfoodOrderLine: Record "Gudfood Order Line";
+    begin
+        if Rec."No." = '' then
+            exit;
+
+        GudfoodOrderLine.SetRange("Order No.", Rec."No.");
+        if GudfoodOrderLine.FindSet() then begin
+            repeat
+                GudfoodOrderLine."Sell-to Customer No." := Rec."Sell-to Customer No.";
+                GudfoodOrderLine.Modify();
+            until GudfoodOrderLine.Next() = 0;
+        end;
+    end;
 }

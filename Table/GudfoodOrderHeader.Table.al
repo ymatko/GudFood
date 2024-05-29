@@ -9,6 +9,15 @@ table 50101 "Gudfood Order Header"
         {
             Caption = 'No.';
             DataClassification = CustomerContent;
+            Editable = false;
+            trigger OnValidate()
+            begin
+                if "No." <> xRec."No." then begin
+                    SalesSetup.Get();
+                    NoSeriesMgt.TestManual(SalesSetup."Gudfoof Order No.");
+                    "No. Series" := '';
+                end;
+            end;
         }
         field(2; "Sell-to Customer No."; Code[20])
         {
@@ -25,7 +34,6 @@ table 50101 "Gudfood Order Header"
         {
             Caption = 'Order Date';
             DataClassification = CustomerContent;
-            Editable = false;
         }
         field(5; "Posting No."; Code[20])
         {
@@ -36,18 +44,27 @@ table 50101 "Gudfood Order Header"
         {
             Caption = 'Date Created';
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(7; "Total Qty"; Decimal)
         {
             Caption = 'Total Qty';
-            DataClassification = CustomerContent;
             Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = sum("Gudfood Order Line".Quantity where("Order No." = field("No.")));
         }
         field(8; "Total Amount"; Decimal)
         {
             Caption = 'Total Amount';
-            DataClassification = CustomerContent;
             Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = sum("Gudfood Order Line".Amount where("Order No." = field("No.")));
+        }
+        field(9; "No. Series"; Code[20])
+        {
+            Caption = 'No. Series';
+            Editable = false;
+            TableRelation = "No. Series";
         }
     }
     keys
@@ -57,4 +74,18 @@ table 50101 "Gudfood Order Header"
             Clustered = true;
         }
     }
+    trigger OnInsert()
+    var
+    begin
+        if "No." = '' then begin
+            SalesSetup.Get();
+            SalesSetup.TestField("Gudfoof Order No.");
+            NoSeriesMgt.InitSeries(SalesSetup."Gudfoof Order No.", xRec."No. Series", 0D, "No.", "No. Series");
+        end;
+        Rec."Date Created" := Today;
+    end;
+
+    var
+        SalesSetup: Record "Sales & Receivables Setup";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
 }

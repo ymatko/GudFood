@@ -19,7 +19,6 @@ page 50101 "Gudfood Item Card"
                     Caption = 'Code';
                     ToolTip = 'Specifies that the Code';
                     ApplicationArea = All;
-                    Editable = false;
                 }
                 field(Description; Rec.Description)
                 {

@@ -1,10 +1,11 @@
-page 50104 "Gudfood Order"
+page 50108 "Posted Gudfood Order"
 {
     ApplicationArea = All;
-    Caption = 'Gudfood Order';
+    Caption = 'Posted Gudfood Order';
     PageType = Document;
-    SourceTable = "Gudfood Order Header";
+    SourceTable = "Posted Gudfood Order Header";
     UsageCategory = Documents;
+    Editable = false;
 
     layout
     {
@@ -45,15 +46,13 @@ page 50104 "Gudfood Order"
                 }
                 field("Total Qty"; Rec."Total Qty")
                 {
-                    Editable = false;
                 }
                 field("Total Amount"; Rec."Total Amount")
                 {
-                    Editable = false;
                 }
 
             }
-            part(GudfoodOrderLines; "Gudfood Order Subpage")
+            part(PostedGudfoodOrderLines; "Posted Gudfood Order Subpage")
             {
                 SubPageLink = "Order No." = field("No.");
                 UpdatePropagation = Both;
@@ -62,7 +61,7 @@ page 50104 "Gudfood Order"
     }
     local procedure CopySellToCustomerNoToLines()
     var
-        GudfoodOrderLine: Record "Gudfood Order Line";
+        GudfoodOrderLine: Record "Posted Gudfood Order Line";
     begin
         if Rec."No." = '' then
             exit;

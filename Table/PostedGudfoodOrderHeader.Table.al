@@ -1,6 +1,6 @@
-table 50101 "Gudfood Order Header"
+table 50102 "Posted Gudfood Order Header"
 {
-    Caption = 'Gudfood Order Header';
+    Caption = 'Posted Gudfood Order Header';
     DataClassification = CustomerContent;
 
     fields
@@ -49,16 +49,24 @@ table 50101 "Gudfood Order Header"
         field(7; "Total Qty"; Decimal)
         {
             Caption = 'Total Qty';
+            Editable = false;
             FieldClass = FlowField;
-            CalcFormula = sum("Gudfood Order Line".Quantity where("Order No." = field("No.")));
+            CalcFormula = sum("Posted Gudfood Order Line".Quantity where("Order No." = field("No.")));
         }
         field(8; "Total Amount"; Decimal)
         {
             Caption = 'Total Amount';
+            Editable = false;
             FieldClass = FlowField;
-            CalcFormula = sum("Gudfood Order Line".Amount where("Order No." = field("No.")));
+            CalcFormula = sum("Posted Gudfood Order Line".Amount where("Order No." = field("No.")));
         }
-        field(9; "No. Series"; Code[20])
+        field(9; "Posting Date"; Date)
+        {
+            Caption = 'Posting Date';
+            DataClassification = CustomerContent;
+            Editable = false;
+        }
+        field(10; "No. Series"; Code[20])
         {
             Caption = 'No. Series';
             Editable = false;

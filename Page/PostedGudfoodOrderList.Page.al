@@ -1,4 +1,4 @@
-page 50105 "Gudfood Order List"
+page 50106 "Posted Gudfood Order List"
 {
     ApplicationArea = All;
     Caption = 'Gudfood Order List';

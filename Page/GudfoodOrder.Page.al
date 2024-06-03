@@ -46,6 +46,7 @@ page 50104 "Gudfood Order"
                 }
                 field("Total Qty"; Rec."Total Qty")
                 {
+                    Editable = false;
                 }
                 field("Total Amount"; Rec."Total Amount")
                 {

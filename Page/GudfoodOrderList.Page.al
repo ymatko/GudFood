@@ -85,6 +85,23 @@ page 50105 "Gudfood Order List"
                     NewOrderPage.Run();
                 end;
             }
+            action("Edit")
+            {
+                Caption = 'Edit';
+                Image = Edit;
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    EditOrderPage: Page "Gudfood Order";
+                begin
+                    if Rec.Get(Rec."No.") then begin
+                        EditOrderPage.SetRecord(Rec);
+                        EditOrderPage.Run();
+                    end;
+                end;
+            }
+
         }
     }
 }

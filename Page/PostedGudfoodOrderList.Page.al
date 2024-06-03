@@ -71,12 +71,18 @@ page 50106 "Posted Gudfood Order List"
             action("Add")
             {
                 Caption = 'Add';
-                Image = AddAction;
+                Image = Add;
                 ApplicationArea = All;
 
                 trigger OnAction()
+                var
+                    NewPostedOrderPage: Page "Posted Gudfood Order";
+                    NewPostedOrder: Record "Posted Gudfood Order Header";
                 begin
-                    PAGE.Run(Page::"Gudfood Order", Rec);
+                    NewPostedOrder.Init();
+                    NewPostedOrder.Insert();
+                    NewPostedOrderPage.SetRecord(NewPostedOrder);
+                    NewPostedOrderPage.Run();
                 end;
             }
         }

@@ -29,6 +29,7 @@ page 50104 "Gudfood Order"
                         end else begin
                             Rec."Sell-to Customer Name" := '';
                         end;
+                        CurrPage.Update();
                     end;
                 }
                 field("Sell-to Customer Name"; Rec."Sell-to Customer Name")
@@ -45,7 +46,6 @@ page 50104 "Gudfood Order"
                 }
                 field("Total Qty"; Rec."Total Qty")
                 {
-                    Editable = false;
                 }
                 field("Total Amount"; Rec."Total Amount")
                 {

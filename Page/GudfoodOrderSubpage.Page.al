@@ -31,6 +31,10 @@ page 50103 "Gudfood Order Subpage"
                 }
                 field(Quantity; Rec.Quantity)
                 {
+                    trigger OnValidate()
+                    begin
+                        CurrPage.Update();
+                    end;
                 }
                 field("Unit Price"; Rec."Unit Price")
                 {

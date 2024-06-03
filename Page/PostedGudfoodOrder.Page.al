@@ -30,6 +30,7 @@ page 50108 "Posted Gudfood Order"
                         end else begin
                             Rec."Sell-to Customer Name" := '';
                         end;
+                        CurrPage.Update();
                     end;
                 }
                 field("Sell-to Customer Name"; Rec."Sell-to Customer Name")

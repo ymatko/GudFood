@@ -10,14 +10,6 @@ table 50102 "Posted Gudfood Order Header"
             Caption = 'No.';
             DataClassification = CustomerContent;
             Editable = false;
-            trigger OnValidate()
-            begin
-                if "No." <> xRec."No." then begin
-                    SalesSetup.Get();
-                    NoSeriesMgt.TestManual(SalesSetup."Gudfoof Order No.");
-                    "No. Series" := '';
-                end;
-            end;
         }
         field(2; "Sell-to Customer No."; Code[20])
         {
@@ -39,6 +31,7 @@ table 50102 "Posted Gudfood Order Header"
         {
             Caption = 'Posting No.';
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(6; "Date Created"; Date)
         {
@@ -80,18 +73,12 @@ table 50102 "Posted Gudfood Order Header"
             Clustered = true;
         }
     }
-    trigger OnInsert()
+    trigger OnDelete()
     var
+        PostedGudfoodOrderLine: Record "Posted Gudfood Order Line";
     begin
-        if "No." = '' then begin
-            SalesSetup.Get();
-            SalesSetup.TestField("Gudfoof Order No.");
-            NoSeriesMgt.InitSeries(SalesSetup."Gudfoof Order No.", xRec."No. Series", 0D, "No.", "No. Series");
-        end;
-        Rec."Date Created" := Today;
+        PostedGudfoodOrderLine.SetRange("Order No.", Rec."No.");
+        PostedGudfoodOrderLine.DeleteAll(true);
+        Message('Deleted');
     end;
-
-    var
-        SalesSetup: Record "Sales & Receivables Setup";
-        NoSeriesMgt: Codeunit NoSeriesManagement;
 }

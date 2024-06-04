@@ -101,7 +101,22 @@ page 50105 "Gudfood Order List"
                     end;
                 end;
             }
+            action("Post")
+            {
+                Caption = 'Post';
+                Image = Post;
+                ApplicationArea = All;
 
+                trigger OnAction()
+                var
+                    PostOrder: Record "Gudfood Order Header";
+                begin
+                    if Rec.Get(Rec."No.") then begin
+                        PostOrder.Copy(Rec);
+                        PostOrder.Delete(true);
+                    end;
+                end;
+            }
         }
     }
 }

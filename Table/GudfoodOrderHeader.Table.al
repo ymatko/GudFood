@@ -58,7 +58,7 @@ table 50101 "Gudfood Order Header"
             FieldClass = FlowField;
             CalcFormula = sum("Gudfood Order Line".Amount where("Order No." = field("No.")));
         }
-        field(9; "No. Series"; Code[20])
+        field(10; "No. Series"; Code[20])
         {
             Caption = 'No. Series';
             Editable = false;
@@ -81,6 +81,36 @@ table 50101 "Gudfood Order Header"
             NoSeriesMgt.InitSeries(SalesSetup."Gudfoof Order No.", xRec."No. Series", 0D, "No.", "No. Series");
         end;
         Rec."Date Created" := Today;
+    end;
+
+    trigger OnDelete()
+    var
+        PostedGudfoodOrderHeader: Record "Posted Gudfood Order Header";
+        PostedGudfoodOrderLine: Record "Posted Gudfood Order Line";
+        GudfoodOrderLine: Record "Gudfood Order Line";
+        NoseriesMgt: Codeunit NoSeriesManagement;
+        SalesSetup: Record "Sales & Receivables Setup";
+    begin
+        PostedGudfoodOrderHeader.Init();
+        SalesSetup.Get();
+        SalesSetup.TestField("Posted Gudfoof Order No.");
+        NoseriesMgt.InitSeries(SalesSetup."Posted Gudfoof Order No.", '', Rec."Order Date", "Posting No.", "No. Series");
+        PostedGudfoodOrderHeader.TransferFields(Rec);
+        PostedGudfoodOrderHeader."Posting Date" := Today();
+        PostedGudfoodOrderHeader."Posting No." := Rec."Posting No.";
+        PostedGudfoodOrderHeader.Insert();
+
+        GudfoodOrderLine.SetRange("Order No.", Rec."No.");
+        if GudfoodOrderLine.FindSet() then
+            repeat
+                PostedGudfoodOrderLine.Init();
+                PostedGudfoodOrderLine.TransferFields(GudfoodOrderLine);
+                PostedGudfoodOrderLine."Line No." := GudfoodOrderLine."Line No.";
+                PostedGudfoodOrderLine.Insert();
+            until GudfoodOrderLine.Next() = 0;
+        GudfoodOrderLine.DeleteAll(true);
+
+        Message('Posted');
     end;
 
     var

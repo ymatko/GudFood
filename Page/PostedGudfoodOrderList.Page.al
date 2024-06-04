@@ -1,9 +1,9 @@
 page 50106 "Posted Gudfood Order List"
 {
     ApplicationArea = All;
-    Caption = 'Gudfood Order List';
+    Caption = 'Posted Gudfood Order List';
     PageType = List;
-    SourceTable = "Gudfood Order Header";
+    SourceTable = "Posted Gudfood Order Header";
     UsageCategory = Lists;
     Editable = false;
 
@@ -49,6 +49,12 @@ page 50106 "Posted Gudfood Order List"
                     ToolTip = 'Specifies that the Date Created';
                     ApplicationArea = All;
                 }
+                field("Posting Date"; Rec."Posting Date")
+                {
+                    Caption = 'Date Posted';
+                    ToolTip = 'Specifies that the Date Posted';
+                    ApplicationArea = All;
+                }
                 field("Total Qty"; Rec."Total Qty")
                 {
                     Caption = 'Total Qty';
@@ -68,21 +74,37 @@ page 50106 "Posted Gudfood Order List"
     {
         area(Navigation)
         {
-            action("Add")
+            action("View")
             {
-                Caption = 'Add';
-                Image = Add;
+                Caption = 'View';
+                Image = ViewCheck;
                 ApplicationArea = All;
 
                 trigger OnAction()
                 var
-                    NewPostedOrderPage: Page "Posted Gudfood Order";
-                    NewPostedOrder: Record "Posted Gudfood Order Header";
+                    PreviewOrderPage: Page "Posted Gudfood Order";
                 begin
-                    NewPostedOrder.Init();
-                    NewPostedOrder.Insert();
-                    NewPostedOrderPage.SetRecord(NewPostedOrder);
-                    NewPostedOrderPage.Run();
+                    if Rec.Get(Rec."No.") then begin
+                        PreviewOrderPage.SetRecord(Rec);
+                        PreviewOrderPage.Editable(false);
+                        PreviewOrderPage.Run();
+                    end;
+                end;
+            }
+            action("Delete")
+            {
+                Caption = 'Delete';
+                Image = Delete;
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    DeleteOrder: Record "Posted Gudfood Order Header";
+                begin
+                    if Rec.Get(Rec."No.") then begin
+                        DeleteOrder.Copy(Rec);
+                        DeleteOrder.Delete(true);
+                    end;
                 end;
             }
         }

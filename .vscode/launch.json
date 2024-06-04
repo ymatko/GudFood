@@ -9,7 +9,7 @@
             "server": "http://container23-3",
             "serverInstance": "BC",
             "authentication": "UserPassword",
-            "startupObjectId": 50105,
+            "startupObjectId": 50106,
             "startupObjectType": "Page",
             "breakOnError": "All",
             "launchBrowser": true,
@@ -17,7 +17,7 @@
             "enableSqlInformationDebugger": true,
             "tenant": "default",
             "usePublicURLFromServer": true,
-            //"schemaUpdateMode": "ForceSync"
+            "schemaUpdateMode": "ForceSync"
         }
     ]
 }

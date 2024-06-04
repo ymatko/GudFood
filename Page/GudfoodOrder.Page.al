@@ -40,6 +40,7 @@ page 50104 "Gudfood Order"
                 }
                 field("Posting No."; Rec."Posting No.")
                 {
+                    Editable = false;
                 }
                 field("Date Created"; Rec."Date Created")
                 {

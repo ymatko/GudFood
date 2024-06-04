@@ -72,12 +72,14 @@ page 50106 "Posted Gudfood Order List"
     }
     actions
     {
-        area(Navigation)
+        area(Processing)
         {
             action("View")
             {
                 Caption = 'View';
                 Image = ViewCheck;
+                Promoted = true;
+                PromotedCategory = Process;
                 ApplicationArea = All;
 
                 trigger OnAction()
@@ -95,6 +97,8 @@ page 50106 "Posted Gudfood Order List"
             {
                 Caption = 'Delete';
                 Image = Delete;
+                Promoted = true;
+                PromotedCategory = Process;
                 ApplicationArea = All;
 
                 trigger OnAction()

@@ -62,6 +62,31 @@ page 50104 "Gudfood Order"
             }
         }
     }
+    actions
+    {
+        area(Processing)
+        {
+            action(Print)
+            {
+                Caption = 'Print';
+                Image = Print;
+                ToolTip = 'Print the selected order report';
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    Report: Report "Gudfood Order Report";
+                    Orders: Record "Gudfood Order Header";
+                begin
+                    Orders.SetFilter("No.", Rec."No.");
+                    Report.SetTableView(Orders);
+                    Report.Run();
+                end;
+            }
+        }
+    }
     local procedure CopySellToCustomerNoToLines()
     var
         GudfoodOrderLine: Record "Gudfood Order Line";

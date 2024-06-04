@@ -2,5 +2,8 @@
     "CRS.FileNamePattern": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",
     "CRS.FileNamePatternExtensions": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",
     "CRS.ObjectNamePrefix": "",
-    "CRS.RemovePrefixFromFilename": true
+    "CRS.RemovePrefixFromFilename": true,
+    "al.compilationOptions": {
+        "generateReportLayout": true
+    }
 }

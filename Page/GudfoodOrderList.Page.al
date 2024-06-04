@@ -66,12 +66,14 @@ page 50105 "Gudfood Order List"
     }
     actions
     {
-        area(Navigation)
+        area(Processing)
         {
             action("Add")
             {
                 Caption = 'Add';
                 Image = Add;
+                Promoted = true;
+                PromotedCategory = Process;
                 ApplicationArea = All;
 
                 trigger OnAction()
@@ -89,6 +91,8 @@ page 50105 "Gudfood Order List"
             {
                 Caption = 'Edit';
                 Image = Edit;
+                Promoted = true;
+                PromotedCategory = Process;
                 ApplicationArea = All;
 
                 trigger OnAction()
@@ -105,6 +109,8 @@ page 50105 "Gudfood Order List"
             {
                 Caption = 'Post';
                 Image = Post;
+                Promoted = true;
+                PromotedCategory = Process;
                 ApplicationArea = All;
 
                 trigger OnAction()
@@ -115,6 +121,25 @@ page 50105 "Gudfood Order List"
                         PostOrder.Copy(Rec);
                         PostOrder.Delete(true);
                     end;
+                end;
+            }
+            action(Print)
+            {
+                Caption = 'Print';
+                Image = Print;
+                ToolTip = 'Print the selected order report';
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    Report: Report "Gudfood Order Report";
+                    Orders: Record "Gudfood Order Header";
+                begin
+                    Orders.SetFilter("No.", Rec."No.");
+                    Report.SetTableView(Orders);
+                    Report.Run();
                 end;
             }
         }

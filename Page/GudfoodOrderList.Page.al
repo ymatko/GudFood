@@ -145,22 +145,21 @@ page 50105 "Gudfood Order List"
             }
             action(ExportToXml)
             {
-                Caption = 'Export To Xml';
+                Caption = 'Export All To Xml';
                 Image = XMLFile;
+                Promoted = true;
+                PromotedCategory = Process;
                 ApplicationArea = All;
 
                 trigger OnAction()
                 var
                     TempBlob: Codeunit "Temp Blob";
                     OrderXml: XmlPort "Export Gudfood Order";
-                    Orders: Record "Gudfood Order Header";
                     OutStr: OutStream;
                     InStr: InStream;
                     FileName: Text;
                 begin
                     TempBlob.CreateOutStream(OutStr);
-                    Orders.SetFilter("No.", Rec."No.");
-                    OrderXml.SetTableView(Orders);
                     OrderXml.SetDestination(OutStr);
                     OrderXml.Export();
                     TempBlob.CreateInStream(InStr);

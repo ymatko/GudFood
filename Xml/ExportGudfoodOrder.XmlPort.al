@@ -7,12 +7,12 @@ xmlport 50100 "Export Gudfood Order"
 
     schema
     {
+
         textelement(Orders)
         {
             XmlName = 'Orders';
             tableelement(OrderHeader; "Gudfood Order Header")
             {
-                RequestFilterFields = "No.";
                 XmlName = 'Order';
                 fieldattribute("Date_Created"; OrderHeader."Date Created")
                 {

@@ -4,7 +4,7 @@ page 50100 "Gudfood Item List"
     Caption = 'Gudfood Item List';
     PageType = List;
     SourceTable = "Gudfood Item";
-    Editable = true;
+    Editable = false;
 
     layout
     {
@@ -43,6 +43,67 @@ page 50100 "Gudfood Item List"
             part("GudfoodItemImageFactBox"; "Gudfood Item Image")
             {
                 ApplicationArea = All;
+            }
+        }
+    }
+    actions
+    {
+        area(Processing)
+        {
+            action("View")
+            {
+                Caption = 'View';
+                Image = ViewCheck;
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    PreviewOrderPage: Page "Gudfood Item Card";
+                begin
+                    if Rec.Get(Rec.Code) then begin
+                        PreviewOrderPage.SetRecord(Rec);
+                        PreviewOrderPage.Run();
+                    end;
+                end;
+            }
+            action("Add")
+            {
+                Caption = 'Add';
+                Image = Add;
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    NewItemPage: Page "Gudfood Item Card";
+                    NewItem: Record "Gudfood Item";
+                begin
+                    NewItem.Init();
+                    NewItem.Insert(true);
+                    NewItemPage.SetRecord(NewItem);
+                    NewItemPage.Run();
+                end;
+            }
+            action("Delete")
+            {
+                Caption = 'Delete';
+                Image = Delete;
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    Item: Record "Gudfood Item";
+                begin
+                    if Rec.Get(Rec.Code) then begin
+                        Item.Copy(Rec);
+                        Item.Delete(true);
+                    end;
+                end;
             }
         }
     }

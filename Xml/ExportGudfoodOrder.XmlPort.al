@@ -52,15 +52,9 @@ xmlport 50100 "Export Gudfood Order"
                     fieldattribute(Amount; OrderLine.Amount)
                     {
                     }
-                    trigger OnAfterGetRecord()
-                    begin
-                        TotalAmount += OrderLine.Amount;
-                    end;
                 }
             }
 
         }
     }
-    var
-        TotalAmount: Decimal;
 }

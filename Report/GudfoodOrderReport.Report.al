@@ -65,27 +65,10 @@ report 50100 "Gudfood Order Report"
 
                 if "No." <> '' then
                     SetRange("No.", "Gudfood Order Header"."No.");
-
-                // if OrderLine.FindSet then
-                //     repeat
-                //         TotalAmount += "Gudfood Order Header"."Total Amount";
-                //     until OrderLine.Next() = 0;
             end;
 
         }
     }
-    // requestpage
-    // {
-    //     layout
-    //     {
-    //         area(Content)
-    //         {
-    //             group(Group)
-    //             {
-    //             }
-    //         }
-    //     }
-    // }
     var
         TotalAmount: Decimal;
 }

@@ -66,6 +66,24 @@ page 50104 "Gudfood Order"
     {
         area(Processing)
         {
+            action("Edit")
+            {
+                Caption = 'Edit';
+                Image = Edit;
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    EditOrderPage: Page "Gudfood Order";
+                begin
+                    if Rec.Get(Rec."No.") then begin
+                        EditOrderPage.SetRecord(Rec);
+                        EditOrderPage.Run();
+                    end;
+                end;
+            }
             action(Print)
             {
                 Caption = 'Print';

@@ -187,7 +187,7 @@ page 50109 "Gudfood Role Center"
                 {
                     ApplicationArea = Basic, Suite;
                     Caption = 'Items';
-                    RunObject = Page "Item List";
+                    RunObject = Page "Gudfood Item List";
                     ToolTip = 'View or edit detailed information for the products that you trade in. The item card can be of type Inventory or Service to specify if the item is a physical unit or a labor time unit.';
                 }
                 action("Item Charges")

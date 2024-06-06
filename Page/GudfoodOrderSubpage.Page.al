@@ -32,8 +32,13 @@ page 50103 "Gudfood Order Subpage"
                 field(Quantity; Rec.Quantity)
                 {
                     trigger OnValidate()
+                    var
+                        Item: Record "Gudfood Item";
                     begin
                         CurrPage.Update();
+                        Item.Get(Rec."Item No.");
+                        Item."Qty. in Order" += Rec.Quantity;
+                        Item.Modify();
                     end;
                 }
                 field("Unit Price"; Rec."Unit Price")

@@ -90,6 +90,7 @@ table 50101 "Gudfood Order Header"
         GudfoodOrderLine: Record "Gudfood Order Line";
         NoseriesMgt: Codeunit NoSeriesManagement;
         SalesSetup: Record "Sales & Receivables Setup";
+        Item: Record "Gudfood Item";
     begin
         PostedGudfoodOrderHeader.Init();
         SalesSetup.Get();
@@ -106,6 +107,10 @@ table 50101 "Gudfood Order Header"
                 PostedGudfoodOrderLine.Init();
                 PostedGudfoodOrderLine.TransferFields(GudfoodOrderLine);
                 PostedGudfoodOrderLine."Line No." := GudfoodOrderLine."Line No.";
+                Item.Get(PostedGudfoodOrderLine."Item No.");
+                Item."Qty. Ordered" += PostedGudfoodOrderLine.Quantity;
+                Item."Qty. in Order" -= PostedGudfoodOrderLine.Quantity;
+                Item.Modify();
                 PostedGudfoodOrderLine.Insert();
             until GudfoodOrderLine.Next() = 0;
         GudfoodOrderLine.DeleteAll(true);

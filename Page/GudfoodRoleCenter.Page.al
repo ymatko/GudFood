@@ -7,12 +7,20 @@ page 50109 "Gudfood Role Center"
     {
         area(RoleCenter)
         {
+            part(Control139; "Gudfood Headline")
+            {
+                ApplicationArea = All;
+            }
             group(Group)
             {
-                part(Control1; "Gudfood Order Subpage")
+                part(Control1; "Gudfood Order ListPart")
                 {
                     ApplicationArea = All;
 
+                }
+                part(Control2; "Gudfood Item PartList")
+                {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -406,21 +414,21 @@ page 50109 "Gudfood Role Center"
 
             action(Orders)
             {
-                Caption = 'Orders lists';
+                Caption = 'Orders list';
                 RunObject = Page "Gudfood Order List";
                 ApplicationArea = All;
             }
 
             action(PostedOrders)
             {
-                Caption = 'Posted Orders lists';
+                Caption = 'Posted Orders list';
                 RunObject = Page "Posted Gudfood Order List";
                 ApplicationArea = All;
 
             }
             action(Item)
             {
-                Caption = 'Meals lists';
+                Caption = 'Meals list';
                 RunObject = Page "Gudfood Item List";
                 ApplicationArea = All;
 

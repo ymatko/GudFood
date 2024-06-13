@@ -11,6 +11,11 @@ page 50109 "Gudfood Role Center"
             {
                 ApplicationArea = All;
             }
+            part(Order; "Order Cues")
+            {
+                Caption = 'All Orders';
+                ApplicationArea = All;
+            }
             group(Group)
             {
                 part(Control1; "Gudfood Order ListPart")

@@ -130,6 +130,25 @@ page 50104 "Gudfood Order"
                     File.DownloadFromStream(InStr, 'Download', '', '', FileName);
                 end;
             }
+            action(ExportToExcel)
+            {
+                Caption = 'Export To Ecxel';
+                ToolTip = 'Export the selected order report to Excel';
+                Image = Excel;
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    Report: Report "Gudfood Order Report To Excel";
+                    Orders: Record "Gudfood Order Header";
+                begin
+                    Orders.SetFilter("No.", Rec."No.");
+                    Report.SetTableView(Orders);
+                    Report.Run();
+                end;
+            }
         }
     }
     local procedure CopySellToCustomerNoToLines()
